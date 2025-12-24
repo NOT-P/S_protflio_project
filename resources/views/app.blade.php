@@ -103,19 +103,18 @@
             
 
             @forelse ($skills as  $item)
-                @if ($item->id !==66)
+                {{-- @if ()   --}}
                     <div class="skill-card">
                     <div class="skill-icon " > <img src="{{ asset($item->image) }}" alt=""></div>
                     <h3>{{ $item->name}}</h3>
                     <p>{{ $item->sub_skills }}</p>
                 </div>
-                @endif
+                {{-- @endif --}}
                  
             @empty
                 
             @endforelse
-                
-            
+                {{-- $item->id !==66 --}}
             
 
 

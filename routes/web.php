@@ -1,17 +1,20 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Models\Skill;
+use Illuminate\Http\Request; 
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', function () {
 
-    $skills = skill::create([
-        'name'=>'backend'.rand(1,100),
-        'sub_skills'=>'HTML,CSS,JavaScript,React,vue.js',
-        'image'=>'backend.png',
-        'created_at'=>now(),
-        'updated_at'=>now(),
-    ]);
-    $skills->save();
+    // $skills = skill::create([
+    //     'name'=>'backend'.rand(1,100),
+    //     'sub_skills'=>'HTML,CSS,JavaScript,React,vue.js',
+    //     'image'=>'backend.png',
+    //     'created_at'=>now(),
+    //     'updated_at'=>now(),
+    // ]);
+
+    // $skills->save();
 
 
 
@@ -19,7 +22,7 @@ Route::get('/', function () {
 
 
 
-    $skills= skill::all();
+   $skills= skill::all();
     
     // dd($skills);
     $name = "sonjit";
@@ -50,3 +53,49 @@ Route::get('/', function () {
 
     return view('app',compact('name','skills','about','ProjectsCompleted'));
 });
+
+
+Route::get('/admins', function(){
+    return view('admin');
+});
+
+Route::post('/admin/skills', function(Request $request){
+    $request->validate([
+        'name' => 'required|string|max:100',
+        'sub_skills' => 'required|string|max:255',
+        'image' => 'required|max:2048|mimes:png,jpg,svg'
+    ]);
+
+    // dd($request->validate(['name']));
+
+
+
+    
+    if($request->hasFile('image')){
+        //$imagePath = $request->file('image')->store('skills','public');
+
+        $fileName = time().'_'.$request->file('image')->getClientOriginalName();
+        $imagePath = $request->file('image')->move(public_path('skills'),$fileName);
+        $imagePath = 'skills/' .$fileName;
+    }else{
+        $imagePath = null;
+    }
+    // dd($imagePath);
+
+
+
+    //save to database
+
+    $skill = Skill::create([
+        'name' => $request->name,
+        'sub_skills' => $request->sub_skills,
+        'image' => $imagePath,
+    ]);
+    return redirect()->back()->with('success','Skill added successfully!');
+
+})->name('admin.skills.store');
+
+
+// Route::get('/form', function(){
+//     return view('form');
+// });
