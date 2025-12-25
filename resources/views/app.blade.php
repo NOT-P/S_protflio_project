@@ -105,7 +105,7 @@
             @forelse ($skills as  $item)
                 {{-- @if ()   --}}
                     <div class="skill-card">
-                    <div class="skill-icon " > <img src="{{ asset($item->image) }}" alt=""></div>
+                    <div class="skill-icon " ><img src="{{ asset($item->image) }}" style="max-width:50%; height:auto;" alt=""></div>
                     <h3>{{ $item->name}}</h3>
                     <p>{{ $item->sub_skills }}</p>
                 </div>
@@ -114,37 +114,8 @@
             @empty
                 
             @endforelse
+
                 {{-- $item->id !==66 --}}
-            
-
-
-
-
-            {{--<div class="skill-card">
-                <div class="skill-icon">⚙️</div>
-                <h3>Backend</h3>
-                <p>Node.js, Python, Express, Django</p>
-            </div>
-            <div class="skill-card">
-                <div class="skill-icon">🎨</div>
-                <h3>Design</h3>
-                <p>UI/UX Design, Figma, Adobe XD</p>
-            </div>
-            <div class="skill-card">
-                <div class="skill-icon">🗄️</div>
-                <h3>Database</h3>
-                <p>MySQL, MongoDB, PostgreSQL</p>
-            </div>
-            <div class="skill-card">
-                <div class="skill-icon">☁️</div>
-                <h3>DevOps</h3>
-                <p>Git, Docker, AWS, CI/CD</p>
-            </div>
-            <div class="skill-card">
-                <div class="skill-icon">📱</div>
-                <h3>Mobile</h3>
-                <p>React Native, Flutter</p>
-            </div> --}}
         </div>
     </div>
 </section>
