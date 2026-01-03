@@ -5,7 +5,7 @@
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
                 <div class="content-header mb-4 d-flex justify-content-between align-items-center">
                     <div>
-                        <h2 class="h4 mb-0">Add Skills</h2>
+                        <h2 class="h4 mb-0">Add Projects</h2>
                         {{-- <small class="text-muted">Simple admin form built with Bootstrap &amp; jQuery</small> --}}
                     </div>
                 </div>
@@ -32,33 +32,44 @@
                             </div>
                         @endif
 
-                        <!-- Add Skill Form -->
+                        <!-- Add Projects Form -->
                         <div class="card shadow-sm">
                             <div class="card-body">
-                                <h5 class="card-title mb-3">Skill Information</h5>
+                                <h5 class="card-title mb-3">Projects Information</h5>
 
-                                <form action="{{ route('admin.skills.store') }}" method="POST"
-                                      enctype="multipart/form-data" id="skill-form">
+                                <form action="{{ route('admin.projects.store') }}" method="POST"
+                                      enctype="multipart/form-data" id="project-form">
                                     @csrf
 
                                     <div class="mb-3">
-                                        <label for="name" class="form-label">Name
+                                        <label for="name" class="form-label">Title
                                             <span class="text-danger">*</span>
                                         </label>
-                                        <input type="text" class="form-control" id="name" name="name"
-                                               placeholder="Enter skill name">
-                                        @error('name')
+                                        <input type="text" class="form-control" id="title" name="title"
+                                               placeholder="Enter your title name">
+                                        @error('title')
                                             <div class="text-danger small mt-1">{{ $message }}</div>
                                         @enderror
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="sub_skills" class="form-label">Sub Skills
+                                        <label for="description" class="form-label">Description
                                             <span class="text-danger">*</span>
                                         </label>
-                                        <input type="text" class="form-control" id="sub_skills" name="sub_skills"
-                                               placeholder="e.g. HTML, CSS, JavaScript">
-                                        @error('sub_skills')
+                                        <textarea type="text" class="form-control" id="description" name="description"
+                                               placeholder=" Enter your description"></textarea>
+                                        @error('description')
+                                            <div class="text-danger small mt-1">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="technology" class="form-label">Technology
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                        <input type="text" class="form-control" id="technology" name="technology"
+                                               placeholder=" Enter your description">
+                                        @error('technology')
                                             <div class="text-danger small mt-1">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -75,7 +86,7 @@
                                     </div>
 
                                     <button type="submit" class="btn btn-primary w-100">
-                                        Add Skill
+                                        Add Projects
                                     </button>
                                 </form>
                             </div>
@@ -94,3 +105,26 @@
         });
     </script>
 @endsection
+
+
+{{-- // namespace Database\Seeders;
+
+// use Illuminate\Database\Seeder;
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+// use App\Models\Project;
+
+// class ProjectSeeder extends Seeder
+// {
+//     /**
+//      * Run the database seeds.
+//      */
+//     public function run(): void
+//     {
+//     Project::create([
+//     'title' => 'E-Commerce Platform',
+//     'description' => 'A fully functional e-commerce platform...',
+//     'technology' => ['React', 'Node.js', 'MongoDB'],
+//     ]);
+
+//     }
+// }  --}}

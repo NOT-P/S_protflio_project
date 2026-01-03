@@ -3,13 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Skill;
+use App\Models\Project;
 use Illuminate\Http\Request;
+
 
 class FrontendController extends Controller
 {
     public function index(){
+   
+   // $projects = Project::all();
 
-   $skills= Skill::all();
+    $projects = Project::all();
+    $skills= Skill::all();
+
+
     $name = "sonjit";
 
     $about = "<p>
@@ -25,8 +32,7 @@ class FrontendController extends Controller
 
     $ProjectsCompleted = 80;
 
-
-    return view('app',compact('name','skills','about','ProjectsCompleted'));
+    return view('app',compact('projects','name','skills','about','ProjectsCompleted'));
     
     }
 }

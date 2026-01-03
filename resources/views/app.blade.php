@@ -125,74 +125,38 @@
     <div class="container">
         <h2 class="section-title">Featured Projects</h2>
         <div class="projects-grid">
+
+            @forelse ($projects as  $project)
             <div class="project-card">
                 <div class="project-image">
+                    <img src="{{ asset($project->image) }}" style=" width: 450px; height:auto;" alt="">
                     <div class="project-overlay">
                         <a href="#" class="project-link">View Project</a>
                         <a href="#" class="project-link">Source Code</a>
                     </div>
                 </div>
                 <div class="project-content">
-                    <h3>E-Commerce Platform</h3>
-                    <p>A fully functional e-commerce platform with payment integration, user authentication, and admin dashboard.</p>
-                    <div class="project-tags">
-                        <span class="tag">React</span>
-                        <span class="tag">Node.js</span>
-                        <span class="tag">MongoDB</span>
-                    </div>
+                    <h3>{{ $project->title }}</h3>
+                    <p>{{ $project->description }}</p>
+                   <div class="project-tags">
+                        
+                        @php
+                            $techs = is_array($project->technology) ? $project->technology  : explode(' ', $project->technology);
+                        @endphp
+
+                    @foreach($techs as $technology)
+                        <span class="tag">{{ $technology }}</span>
+                    @endforeach
+                </div>
+
+
                 </div>
             </div>
-            <div class="project-card">
-                <div class="project-image">
-                    <div class="project-overlay">
-                        <a href="#" class="project-link">View Project</a>
-                        <a href="#" class="project-link">Source Code</a>
-                    </div>
-                </div>
-                <div class="project-content">
-                    <h3>Task Management App</h3>
-                    <p>A collaborative task management application with real-time updates and team collaboration features.</p>
-                    <div class="project-tags">
-                        <span class="tag">Vue.js</span>
-                        <span class="tag">Firebase</span>
-                        <span class="tag">CSS3</span>
-                    </div>
-                </div>
-            </div>
-            <div class="project-card">
-                <div class="project-image">
-                    <div class="project-overlay">
-                        <a href="#" class="project-link">View Project</a>
-                        <a href="#" class="project-link">Source Code</a>
-                    </div>
-                </div>
-                <div class="project-content">
-                    <h3>Weather Dashboard</h3>
-                    <p>A beautiful weather dashboard with location-based forecasts, interactive maps, and weather alerts.</p>
-                    <div class="project-tags">
-                        <span class="tag">JavaScript</span>
-                        <span class="tag">API</span>
-                        <span class="tag">Chart.js</span>
-                    </div>
-                </div>
-            </div>
-            <div class="project-card">
-                <div class="project-image">
-                    <div class="project-overlay">
-                        <a href="#" class="project-link">View Project</a>
-                        <a href="#" class="project-link">Source Code</a>
-                    </div>
-                </div>
-                <div class="project-content">
-                    <h3>Social Media Dashboard</h3>
-                    <p>Analytics dashboard for social media metrics with data visualization and reporting tools.</p>
-                    <div class="project-tags">
-                        <span class="tag">React</span>
-                        <span class="tag">Python</span>
-                        <span class="tag">D3.js</span>
-                    </div>
-                </div>
-            </div>
+
+            @empty
+                "No projects found"
+            @endforelse
+
         </div>
     </div>
 </section>
@@ -304,4 +268,33 @@
 </script>
 </body>
 </html>
+---------------------------------------------------------------------------------?
+<div class="project-card">
+    <div class="project-image">
+        <div class="project-overlay">
+            <a href="#" class="project-link">View Project</a>
+            <a href="#" class="project-link">Source Code</a>
+        </div>
+    </div>
+    <div class="project-content">
+        @isset($project)
+            <h3>{{ $project->title }}</h3>
+            <p>{{ $project->description }}</p>
+            <div class="project-tags">
+                @foreach($project->tags ?? [] as $tag)
+                    <span class="tag">{{ $tag }}</span>
+                @endforeach
+            </div>
+        @else
+            <h3>E-Commerce Platform</h3>
+            <p>A fully functional e-commerce platform with payment integration, user authentication, and admin dashboard.</p>
+            <div class="project-tags">
+                <span class="tag">React</span>
+                <span class="tag">Node.js</span>
+                <span class="tag">MongoDB</span>
+            </div>
+        @endisset
+    </div>
+</div>
+
 

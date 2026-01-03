@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Skill;
 use Illuminate\Http\Request;
+use App\Models\Project;
 
 class AdminController extends Controller
 {
@@ -51,45 +52,46 @@ class AdminController extends Controller
 
 
 
-    public function project(){
-        return view('project');
-    }
+#project page----------------?
 
-    public function projectStore(Request $request){
+public function project(){
+    
+    return view('project' );
+}
+
+public function projectStore(Request $request){
     $request->validate([
-        'name' => 'required|string|max:100',
-        'sub_skills' => 'required|string|max:255',
+        'title' => 'required|string|max:100',
+        'description' => 'required|string|max:255',
+        'technology' => 'required|string',
         'image' => 'required|max:2048|mimes:png,jpg,svg'
         // 'image' => 'required|image|mimes:png,jpg,svg|max:2048'
     ]);
 
-    // dd($request->validate(['name']));
+    #image path page----------------?
 
-
-
-    
     if($request->hasFile('image')){
-        //$imagePath = $request->file('image')->store('skills','public');
+         //$imagePath = $request->file('image')->store('skills','public');
 
         $fileName = time().'_'.$request->file('image')->getClientOriginalName();
-        $imagePath = $request->file('image')->move(public_path('skills'),$fileName);
-        $imagePath = 'skills/' .$fileName;
+        $imagePath = $request->file('image')->move(public_path('projects'),$fileName);
+        $imagePath = 'projects/' .$fileName;
     }else{
         $imagePath = null;
     }
-    // dd($imagePath);
 
+    #save to database---------?
 
-
-    //save to database
-
-    $skill = Skill::create([
-        'name' => $request->name,
-        'sub_skills' => $request->sub_skills,
+     $project = Project::create([
+        'title' => $request->title,
+        'description' => $request->description,
+        'technology' => $request->technology,
         'image' => $imagePath,
     ]);
-    
-    return redirect()->back()->with('success','Skill added successfully!');
 
-}
+    return redirect()->back()->with('success', 'Project added successfully!');
+
+
+    }
+
 }
